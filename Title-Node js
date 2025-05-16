@@ -1,0 +1,65 @@
+// Search for books by Title
+const axios = require('axios');
+
+/**
+ * Search for books by title using async/await
+ * @param {string} title - The title to search for
+ */
+async function getBooksByTitle(title) {
+  try {
+    console.log(`Searching for books with title: ${title}`);
+    const encodedTitle = encodeURIComponent(title);
+    const response = await axios.get(`http://localhost:3000/api/books/title/${encodedTitle}`);
+    console.log(`Books with title matching "${title}":`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching books with title ${title}:`, error.message);
+    throw error;
+  }
+}
+
+// Execute the function with a sample title
+(async () => {
+  try {
+    await getBooksByTitle('JavaScript');
+  } catch (error) {
+    console.error('Title search failed:', error);
+  }
+})();
+                > Searching for books with title: JavaScript
+> Books with title matching "JavaScript":
+> {
+  "books": [
+    {
+      "isbn": "9781593279509",
+      "title": "Eloquent JavaScript",
+      "author": "Marijn Haverbeke",
+      "year": 2018,
+      "publisher": "No Starch Press",
+      "pages": 472,
+      "language": "English",
+      "rating": 4.8
+    },
+    {
+      "isbn": "9781449331818",
+      "title": "Learning JavaScript Design Patterns",
+      "author": "Addy Osmani",
+      "year": 2012,
+      "publisher": "O'Reilly Media",
+      "pages": 254,
+      "language": "English",
+      "rating": 4.5
+    },
+    {
+      "isbn": "9781449365035",
+      "title": "Speaking JavaScript",
+      "author": "Axel Rauschmayer",
+      "year": 2014,
+      "publisher": "O'Reilly Media",
+      "pages": 460,
+      "language": "English",
+      "rating": 4.3
+    }
+  ]
+}
