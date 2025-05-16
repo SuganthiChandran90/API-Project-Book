@@ -1,0 +1,55 @@
+// Search for books by Author
+const axios = require('axios');
+
+/**
+ * Search for books by author using async/await
+ * @param {string} author - The author name to search for
+ */
+async function getBooksByAuthor(author) {
+  try {
+    console.log(`Searching for books by author: ${author}`);
+    const encodedAuthor = encodeURIComponent(author);
+    const response = await axios.get(`http://localhost:3000/api/books/author/${encodedAuthor}`);
+    console.log(`Books by ${author}:`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching books by author ${author}:`, error.message);
+    throw error;
+  }
+}
+
+// Execute the function with a sample author
+(async () => {
+  try {
+    await getBooksByAuthor('Kyle Simpson');
+  } catch (error) {
+    console.error('Author search failed:', error);
+  }
+})();
+                > Searching for books by author: Kyle Simpson
+> Books by Kyle Simpson:
+> {
+  "books": [
+    {
+      "isbn": "9781491904244",
+      "title": "You Don't Know JS",
+      "author": "Kyle Simpson",
+      "year": 2015,
+      "publisher": "O'Reilly Media",
+      "pages": 278,
+      "language": "English",
+      "rating": 4.7
+    },
+    {
+      "isbn": "9781491904398",
+      "title": "You Don't Know JS: Scope & Closures",
+      "author": "Kyle Simpson",
+      "year": 2014,
+      "publisher": "O'Reilly Media",
+      "pages": 98,
+      "language": "English",
+      "rating": 4.6
+    }
+  ]
+}
