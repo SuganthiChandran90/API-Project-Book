@@ -1,0 +1,42 @@
+// Using Promises to search books by ISBN
+const axios = require('axios');
+
+/**
+ * Search for a book by ISBN using Promises
+ * @param {string} isbn - The ISBN to search for
+ */
+function getBookByISBN(isbn) {
+  console.log(`Searching for book with ISBN: ${isbn}`);
+  return axios.get(`http://localhost:3000/api/books/isbn/${isbn}`)
+    .then(response => {
+      console.log('Book found:');
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.error(`Error fetching book with ISBN ${isbn}:`, error.message);
+      throw error;
+    });
+}
+
+// Execute the function with a sample ISBN
+getBookByISBN('9781449331818')
+  .then(() => console.log('ISBN search completed'))
+  .catch(error => console.error('ISBN search failed:', error));
+                > Searching for book with ISBN: 9781449331818
+> Book found:
+> {
+  "book": {
+    "isbn": "9781449331818",
+    "title": "Learning JavaScript Design Patterns",
+    "author": "Addy Osmani",
+    "year": 2012,
+    "publisher": "O'Reilly Media",
+    "pages": 254,
+    "language": "English",
+    "rating": 4.5,
+    "description": "With Learning JavaScript Design Patterns, you'll learn how to write beautiful, structured, and maintainable JavaScript by applying classical and modern design patterns to the language.",
+    "categories": ["JavaScript", "Programming", "Web Development"]
+  }
+}
+> ISBN search completed
