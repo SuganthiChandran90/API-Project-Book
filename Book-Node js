@@ -1,0 +1,74 @@
+
+// Using async/await to get all books
+const axios = require('axios');
+
+/**
+ * Get all books using async/await
+ */
+async function getAllBooks() {
+  try {
+    console.log('Fetching all books...');
+    const response = await axios.get('http://localhost:3000/api/books');
+    console.log('Books retrieved successfully:');
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching books:', error.message);
+    throw error;
+  }
+}
+
+// Execute the function
+(async () => {
+  try {
+    await getAllBooks();
+  } catch (error) {
+    console.error('Failed to get books:', error);
+  }
+})();
+                > Fetching all books...
+> Books retrieved successfully:
+> {
+  "books": [
+    {
+      "isbn": "9781593279509",
+      "title": "Eloquent JavaScript",
+      "author": "Marijn Haverbeke",
+      "year": 2018,
+      "publisher": "No Starch Press",
+      "pages": 472,
+      "language": "English",
+      "rating": 4.8
+    },
+    {
+      "isbn": "9781449331818",
+      "title": "Learning JavaScript Design Patterns",
+      "author": "Addy Osmani",
+      "year": 2012,
+      "publisher": "O'Reilly Media",
+      "pages": 254,
+      "language": "English",
+      "rating": 4.5
+    },
+    {
+      "isbn": "9781449365035",
+      "title": "Speaking JavaScript",
+      "author": "Axel Rauschmayer",
+      "year": 2014,
+      "publisher": "O'Reilly Media",
+      "pages": 460,
+      "language": "English",
+      "rating": 4.3
+    },
+    {
+      "isbn": "9781491904244",
+      "title": "You Don't Know JS",
+      "author": "Kyle Simpson",
+      "year": 2015,
+      "publisher": "O'Reilly Media",
+      "pages": 278,
+      "language": "English",
+      "rating": 4.7
+    }
+  ]
+}
